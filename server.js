@@ -10,14 +10,22 @@ const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 
+
 var app = express(); 
 const server = http.createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
 require('./websocket')(io)
 
 //const io = socketio(server);
 const PORT = process.env.PORT || 5000;
+var cors = require('cors')
 
+app.use(cors()) // Use this after the variable declaration
 
 
 
@@ -35,8 +43,8 @@ const PORT = process.env.PORT || 5000;
 //     })
 // })
 
-const dbURI = "mongodb+srv://MingKang:mklmao@realmcluster.6wpbi.mongodb.net/mkdb?retryWrites=true&w=majority"
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+const dbURI = "mongodb+srv://mingkang:1234@cluster0.oydwh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(result => server.listen(PORT, () => console.log(`Server started on port: ${PORT}`)))
     .catch(err => console.log(err));
 

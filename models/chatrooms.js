@@ -9,13 +9,11 @@ const MessageSchema = new Schema({
     sender: {
       type: String,
       required: true,
-      unique: true
     },
     dateTime: {
       type: Date,
       required: true
     },
-  
   });
 
 const ChatroomSchema = new Schema({
@@ -31,7 +29,8 @@ const ChatroomSchema = new Schema({
 });
 
 const Chatroom = mongoose.model('chatroom', ChatroomSchema);
-module.exports = Chatroom;
+const Message = mongoose.model('message', MessageSchema);
+module.exports = {Chatroom, Message};
 
 
 
