@@ -1,0 +1,26 @@
+#main-container {
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+}
+
+#side-container {
+	display: flex;
+	width: 320px;
+	min-width: 320px;
+	flex-direction: column;
+}
+
+#chatroomDivsContainer {
+	height: calc(100vh - 160px);
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+
+#conversation-container {
+	flex: auto;
+}

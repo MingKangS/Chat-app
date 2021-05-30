@@ -1,0 +1,19 @@
+.chatroomDiv {
+	flex: 0 0 80px;
+	background-color: #fff;
+	border: 1px solid #000;
+	border-bottom-style: none;
+	vertical-align: middle;
+	line-height: 100px;
+	cursor: pointer;
+}
+
+.chatroomDivName {
+	font-size: larger;
+	font-family: 'Courier New', Courier, monospace;
+	font-style: normal;
+	font-weight: bold ;
+	margin: auto;
+	text-align: center;
+	cursor: pointer;
+}
