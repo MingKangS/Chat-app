@@ -24,7 +24,8 @@ export default class Welcome extends Component {
   }
   render() {
     return (
-    <div>
+    <div id="welcome-page-container">
+			
       <h1>WC</h1>
       <a href="/log-in">
         <button>Log in</button>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import LocalHospitalSharpIcon from '@material-ui/icons/LocalHospitalSharp';
 import '../../styles/createChatroom.css';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 export default class CreateChatroom extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ export default class CreateChatroom extends Component {
     this.onChangeUser = this.onChangeUser.bind(this);
     this.createChatroom = this.createChatroom.bind(this);
     this.addUser = this.addUser.bind(this);
+    this.removeUser = this.removeUser.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +71,15 @@ export default class CreateChatroom extends Component {
     this.setState({users: users});
   }
 
+  removeUser() {
+    var {users} = this.state;
+    if (users.length == 1) {
+      return
+    }
+    users.pop();
+    this.setState({users: users});
+  }
+
   toggleCreateChatroomVisibility() {
     this.setState({users: [""]});
     var modal = document.getElementById("myModal");
@@ -76,36 +88,45 @@ export default class CreateChatroom extends Component {
 
   render() {
     const userInputs = this.state.users.map((user,index) => (
-      <input  type="text"
+      <input  
+        type="text"
         required
-        className="form-control"
+        className="input participant-input"
         value={user}
         onChange={(e) => this.onChangeUser(e,index)}
       />
     ))
     return (
       <>
-        <button id="createChatroomToggleButton" onClick={() => this.toggleCreateChatroomVisibility()}>
-          <LocalHospitalSharpIcon fontSize="60px" id="plusIcon"/>
+        <button id="createChatroomToggleVisibilityButton" onClick={() => this.toggleCreateChatroomVisibility()}>
+          <div id="plus">
+            
+          </div>
         </button> 
+        
         <div id="myModal" className="modal">
           <div class="modal-content">
             <span className="close">&times;</span>
             <form id="createChatroomForm" onSubmit={(e) => this.createChatroom(e)}>
               <div className="form-group"> 
-                <label>Chatroom name </label>
-                <input  type="text"
+                <label class="required">Chatroom name </label>
+                <input 
+                  className="input" 
+                  type="text"
                   required
-                  className="form-control"
                   value={this.state.room_name}
                   onChange={this.onChangeRoomName}
                 />
-                <label>Participants: </label>
-                { userInputs }
-                <button  onClick={() => this.addUser()}>Add particiant</button> 
               </div>
               <div className="form-group">
-                <input type="submit" value="Create Chatroom" className="btn btn-primary" />
+                <label class="required">Participants:</label>
+                { userInputs }
+                <AddCircleOutlineIcon onClick={() => this.addUser()} className="form-icon"/>
+                <RemoveCircleOutlineIcon onClick={() => this.removeUser()} className="form-icon"/>
+                
+              </div>
+              <div className="form-group">
+                <input id="createChatroomButton" type="submit" value="Create Chatroom" className="btn btn-primary" />
               </div>
             </form>
           </div>

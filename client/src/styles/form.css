@@ -1,3 +1,7 @@
+#logo {
+	width: 15rem;
+}
+
 #form-container {
   align-items: center;
   background: rgb(255, 240, 227);
@@ -27,7 +31,7 @@
 	--shadeLight: 0.7;
 	--shadeNormal: 0.5;
 	--borderRadius: 0.125rem;
-	--highlight: #306090;
+	--highlight: #ffa600;
 	background: white;
 	border: 1px solid var(--border);
 	border-radius: var(--borderRadius);
@@ -222,7 +226,7 @@ figure {
 	--skinS: 100%;
 	--skinL: 87%;
 	--hair: rgb(180,70,60);
-	background: hsl(var(--fgColorH), calc(var(--fgColorS) * 2), 95%);
+	background: rgb(255, 240, 227);
 	border: 1px solid rgba(0,0,0,0.0625);
 	border-radius: 50%;
 	height: 0;

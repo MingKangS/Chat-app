@@ -6,36 +6,12 @@ const server = require('../server');
 const {Chatroom, Message} = require('../models/chatrooms');
 const io = socketio(server);
 
-// io.on('connection', async socket => {
-// 	user = await User.findOne({ username: socket.handshake.query.username });
-// 	for (var chatroom of user.chatrooms) {
-// 		socket.join(chatroom);
-// 	}
-
-// 	socket.on('message', ({ sender_name, room_name, message }) => {
-// 		const newMessage = new Message({
-// 			message: message,
-// 			sender: sender_name,
-// 			dateTime: Date.now(),
-// 		});
-// 		Chatroom.findOneAndUpdate({room_name: room_name}, { $push: { messages: newMessage } },function (err, docs) {
-// 			if (err){
-// 				console.log(err);
-// 			}
-// 			else{
-// 				console.log("Updated User : ", docs);
-// 			}
-// 		});
-// 		socket.to(room_name).emit('message', { sender_name, room_name, message });
-// 	})
-// })
-
 router.post('/create-chatroom', async (req, res) => {
 	const { room_name, participants} = req.body;
 	const newChatroom = new Chatroom({
 		room_name,
 	});
-    
+
   const savedChatroom = await newChatroom.save();
 
 	for (var username of participants) {
@@ -63,11 +39,12 @@ router.post('/create-chatroom', async (req, res) => {
 				}
 				else{
 					console.log("Updated User : ", docs);
+					res.send(updatedChatroom);
 				}
 			}
 		);
 	}
-	res.send(updatedChatroom);
+	//res.send(updatedChatroom);
 
 });
 

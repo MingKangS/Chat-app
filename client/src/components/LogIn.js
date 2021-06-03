@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../styles/form.css';
+import logo from '../assets/logo2.png'; // with import
 
 export default class CreateUser extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export default class CreateUser extends Component {
     return (
       <div id="form-container">
         <form class="form" onSubmit={this.onSubmit}>
-          <img src="../assets/logo2.png"></img>
+          <img src={logo} id="logo" ></img>
           <div className="form-group"> 
             <label class="label-email">
               <span class="required">Email</span>
@@ -88,7 +89,7 @@ export default class CreateUser extends Component {
             </label>
           </div>
           <div className="form-group">
-            <input type="submit" value="Log in" className="btn btn-primary" />
+            <input type="submit" value="Log in" className="" />
           </div>
           <div class="email">
             <a href="./sign-up">Don't have an account? Sign up!</a>
