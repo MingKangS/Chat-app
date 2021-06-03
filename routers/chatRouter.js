@@ -39,7 +39,7 @@ router.post('/create-chatroom', async (req, res) => {
 				}
 				else{
 					console.log("Updated User : ", docs);
-					res.send(updatedChatroom);
+					res.send(docs);
 				}
 			}
 		);
