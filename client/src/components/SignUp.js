@@ -20,11 +20,11 @@ export default class ExercisesList extends Component {
   componentDidMount() {
     axios.get('/auth/user')
       .then(res => {this.setState({user: res.data})
-      console.log(res.data,res.data.username)
-      if (res.data.username) {
-        window.location = "/chat"
-      }
-    });
+        console.log(res.data,res.data.username)
+        if (res.data.username) {
+          window.location = "/chat"
+        }
+      }).catch(err => console.log(err))
     console.log(this.state.user)
     
   }
@@ -37,8 +37,18 @@ export default class ExercisesList extends Component {
     const user = {email: this.state.email, username: this.state.username, password: this.state.password}
     console.log(user)
     axios.post('/auth/sign-up', user)
-      .then(res => console.log(res.data));
-
+      .then(res => {
+        console.log(res.data);
+        axios.post('/auth/log-in', {email: this.state.email, password: this.state.password})
+          .then(res => {
+            console.log(res.data);
+            if (res.status == 200) {
+              window.location = "/chat"
+            };
+          }).catch(err => {
+            console.log(err);
+          });
+      });
     this.setState({
       username: ''
     })
@@ -63,35 +73,10 @@ export default class ExercisesList extends Component {
     })
   }
 
-  /*componentDidMount() {
-    axios.get('http://localhost:5000/exercises/')
-      .then(response => {
-        this.setState({ exercises: response.data })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
-  deleteExercise(id) {
-    axios.delete('http://localhost:5000/exercises/'+id)
-      .then(response => { console.log(response.data)});
-
-    this.setState({
-      exercises: this.state.exercises.filter(el => el._id !== id)
-    })
-  }
-
-  exerciseList() {
-    return this.state.exercises.map(currentexercise => {
-      return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id}/>;
-    })
-  }*/
-
   render() {
     return (
       <div id="form-container">
-        <form class="form" onSubmit={this.onSubmit}>
+        <form class="form" onSubmit={this.handleSubmit}>
           <figure aria-hidden="true">
             <div class="person-body"></div>
             <div class="neck skin"></div>
@@ -147,7 +132,7 @@ export default class ExercisesList extends Component {
             </label>
           </div>
           <div className="form-group">
-            <input type="submit" value="Log in" className="btn btn-primary" />
+            <input type="submit" value="Sign up" className="btn btn-primary" />
           </div>
           <div class="email">
             <a href="./log-in">Already have an account? Log in!</a>

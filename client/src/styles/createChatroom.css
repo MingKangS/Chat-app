@@ -4,6 +4,45 @@
   background-color: #ffa600;
 }
 
+#createChatroomToggleVisibilityButton:hover {
+	animation-name: createChatroomToggleVisibilityButtonHover;
+	animation-duration: 0.3s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+  
+@keyframes createChatroomToggleVisibilityButtonHover {
+  100% {
+    background-color: white;
+    color: white;
+  }
+}
+
+#createChatroomToggleVisibilityButton:hover > #plus {
+  animation-name: plusHover;
+	animation-duration: 0.3s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+  
+@keyframes plusHover {
+  100% {
+    background:
+      linear-gradient(#ffa600,#ffa600),
+      linear-gradient(#ffa600,#ffa600),
+      white;
+    background-position:center;
+    background-size: 100% 20px,20px 100%; /*thickness = 2px, length = 50% (25px)*/
+    background-repeat:no-repeat;
+  }
+}
+
 #plus {
   display:inline-block;
   width:60px;
@@ -107,6 +146,7 @@
 #createChatroomButton {
   width: 18rem;
   background-color: #ffa600;
+  cursor: pointer;
 }
 
 .form-icon {

@@ -1,3 +1,20 @@
+.errorMessage {
+  font-size: 11px;
+  color: rgb(255, 80, 80);
+  word-wrap: break-word;
+  width: 15rem;
+}
+
+.errorMessageContainer {
+  width: 15rem;
+  text-align: center;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+}
+
 #logo {
 	width: 15rem;
 }

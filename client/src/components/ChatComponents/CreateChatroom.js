@@ -23,7 +23,6 @@ export default class CreateChatroom extends Component {
   componentDidMount() {
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
-    console.log(modal, span)
     // When the user clicks on <span> (x), close the modal
 
     span.onclick = function() {
@@ -56,13 +55,12 @@ export default class CreateChatroom extends Component {
     e.preventDefault();
     axios.post('/chat/create-chatroom', {room_name: this.state.room_name, participants: this.state.users})
       .then(res => {
+        console.log(res.data);
         this.props.onCreateChatroom(res.data);
+        document.getElementById("myModal").style.display = "none";
+      }).catch(err => {
+        console.log(err);
       });
-
-    this.setState({
-      users: [],
-      room_name: ""
-    })
   }
 
   addUser() {
@@ -81,7 +79,7 @@ export default class CreateChatroom extends Component {
   }
 
   toggleCreateChatroomVisibility() {
-    this.setState({users: [""]});
+    this.setState({users: [""], room_name: ""});
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
   }

@@ -27,6 +27,11 @@ export default class Welcome extends Component {
     // ))
     return (
     <div id="chatroomDivsContainer">
+    {Object.keys(this.props.chatrooms).length === 0 &&
+        <h2 id="noChatroomsMessage">
+          You have not joined any chatrroms.
+        </h2>
+      }
       {chatroomDivs}
     </div>
     )

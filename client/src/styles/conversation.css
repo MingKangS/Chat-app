@@ -1,5 +1,80 @@
+#conversationHeader {
+  height: 60px;
+  width: 100%;
+  background-color: #c0dde5;
+  display: flex;
+}
+
+#chatroomName {
+  margin: auto;
+  font-size: 30px;
+  color: #000;
+}
+
+#logoutContainer {
+  width: 60px;
+  background-color: rgb(218, 0, 0);
+  cursor: pointer;
+}
+
+#logoutIcon {
+  color: white;
+  font-size: 50px;
+  margin: 5px 5px;
+  
+}
+
+#logoutContainer:hover {
+  animation-name: logoutContainerHover;
+	animation-duration: 0.2s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+  
+@keyframes logoutContainerHover {
+  100% {
+    background-color: white;
+  }
+}
+
+#logoutContainer:hover > #logoutIcon {
+  animation-name: logoutHover;
+	animation-duration: 0.2s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+  
+@keyframes logoutHover {
+  100% {
+    color: rgb(218, 0, 0);
+  }
+}
+
+#confirmLogoutButton {
+  width: 18rem;
+  background-color: rgb(218, 0, 0);
+  border: 1px solid var(--border);
+	border-radius: var(--borderRadius);
+	box-sizing: border-box;
+	font-size: 1rem;
+	height: 2.25rem;
+	line-height: 1.25rem;
+	margin-top: 0.25rem;
+	order: 2;
+	padding: 0.25rem 0.5rem;
+	transition: all 0.25s;
+  color: white;
+  cursor: pointer;
+}
+
 #chat-container {
-  height: calc(100vh - 78px);
+  height: calc(100vh - 138px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -15,7 +90,7 @@
   padding: 5px 10px;
   border-radius: 10px;
   margin: 8px 10px 0px 10px;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .message {
@@ -74,4 +149,20 @@
   top: 3px;
   cursor: pointer;
   color: #00a9de;
+}
+
+#sendIcon:hover {
+  animation-name: sendIconHover;
+	animation-duration: 0.2s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
+}
+  
+@keyframes sendIconHover {
+  100% {
+    color: white;
+  }
 }

@@ -10,6 +10,7 @@ export default class CreateUser extends Component {
       email: "",
       password: "",
       user: false,
+      errorMessage: false,
     }
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -45,10 +46,15 @@ export default class CreateUser extends Component {
 
     axios.post('/auth/log-in', {email: this.state.email, password: this.state.password})
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
         if (res.status == 200) {
           window.location = "/chat"
-        }
+        } else {
+          this.setState({errorMessage: "An error occured. Please check your credentials and try again."});
+        };
+      }).catch(err => {
+        console.log(err);
+        this.setState({errorMessage: "An error occured. Please check your credentials and try again."});
       });
 
     this.setState({
@@ -91,6 +97,11 @@ export default class CreateUser extends Component {
           <div className="form-group">
             <input type="submit" value="Log in" className="" />
           </div>
+          { this.state.errorMessage &&
+            <div className="errorMessageContainer">
+              <span className="errorMessage">{this.state.errorMessage}</span>
+            </div>
+          }
           <div class="email">
             <a href="./sign-up">Don't have an account? Sign up!</a>
           </div>

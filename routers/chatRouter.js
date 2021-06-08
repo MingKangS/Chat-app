@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const socketio = require('socket.io');
 const User = require('../models/users');
-const server = require('../server');
 const {Chatroom, Message} = require('../models/chatrooms');
-const io = socketio(server);
 
 router.post('/create-chatroom', async (req, res) => {
 	const { room_name, participants} = req.body;
@@ -23,6 +20,7 @@ router.post('/create-chatroom', async (req, res) => {
 			function (err, docs) {
 				if (err){
 					console.log(err);
+          res.status(500).send("An error occured");
 				}
 				else{
 					console.log("Updated User : ", docs);
@@ -36,15 +34,15 @@ router.post('/create-chatroom', async (req, res) => {
 			function (err, docs) {
 				if (err){
 					console.log(err);
+          res.status(500).send("An error occured");
 				}
 				else{
 					console.log("Updated User : ", docs);
-					res.send(docs);
 				}
 			}
 		);
 	}
-	//res.send(updatedChatroom);
+	res.status(200).send(room_name);
 
 });
 

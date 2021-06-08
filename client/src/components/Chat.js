@@ -43,9 +43,13 @@ export default class Chat extends Component {
   }
 
   onCreateChatroom(newChatroom) {
-    var { chatrooms } = this.state;
-    this.setState({chatrooms: chatrooms.concat([newChatroom])});
-    this.toggleCreateChatroomVisibility();
+    console.log(this.state.chatrooms);
+    const prevState = this.state;
+    this.setState(prevState => {
+      let chatrooms = { ...prevState.chatrooms };
+      chatrooms[newChatroom] = [];
+      return { chatrooms };
+    })
   }
 
   async updateChat(message) {
@@ -74,7 +78,7 @@ export default class Chat extends Component {
           !this.state.loadingChat && (
             <div id="main-container">
               <div id="side-container">
-                <CreateChatroom onCreateChatroom={() => this.onCreateChatroom}/>
+                <CreateChatroom onCreateChatroom={(room_name) => this.onCreateChatroom(room_name)}/>
                 <Chatrooms chatrooms={this.state.chatrooms} openChatroom={(room_name) => this.openChatroom(room_name)}/>
               </div>
               <Conversation chatroom={this.state.openedChatroom} username={this.state.user} messages={this.state.chatrooms[this.state.openedChatroom]} updateChat={async (message) => await this.updateChat(message)}/>

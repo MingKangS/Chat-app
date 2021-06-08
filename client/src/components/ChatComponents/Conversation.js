@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import axios from 'axios';
 import SendIcon from '@material-ui/icons/Send';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import '../../styles/conversation.css';
 
 function Conversation(props) {
@@ -33,6 +34,21 @@ function Conversation(props) {
 					updateScroll()
 				}
 			})
+
+      var modal = document.getElementById("logoutModal");
+      var span = document.getElementById("closeLogoutModal");
+      // When the user clicks on <span> (x), close the modal
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
 			return () => socketRef.current.disconnect();
 		},
 		[ props.chatroom ]
@@ -55,12 +71,24 @@ function Conversation(props) {
 		setMessage("");
 	}
 
+  const toggleLogoutModalVisibility = (e) => {
+    var modal = document.getElementById("logoutModal");
+    modal.style.display = "block";
+  }
+
+  const logout = (e) => {
+    axios.get('/auth/logout')
+      .then(res => { 
+        window.location = '/';
+      });
+  }
+
 	const renderChat = () => {
 		if (!chat) return;
 		return chat.map(({ sender, message }, index) => (
 			<div key={index} className={sender==props.username ? "chat sent-chat" : "chat received-chat"}>
 				<p className={sender==props.username ? "message sent-chat-message" : "message received-chat-message"}>
-					{sender}: {message}
+					{!(sender==props.username) && sender + ": "}{message}
 				</p>
 			</div>
 		))
@@ -68,6 +96,20 @@ function Conversation(props) {
 
 	return (
 		<div id="conversation-container">
+      <div id="logoutModal" className="modal">
+        <div class="modal-content">
+          <span id="closeLogoutModal" className="close">&times;</span>
+          <p>Are you sure you want to log out?</p>
+          <button id="confirmLogoutButton" className="btn btn-primary" onClick={logout}>Log out</button>
+        </div>
+      </div>
+			<div id="conversationHeader">
+				<h1 id="chatroomName">{props.chatroom}</h1>
+        <div id="logoutContainer">
+          <ExitToAppIcon id="logoutIcon" onClick={toggleLogoutModalVisibility}/>
+        </div>
+        
+			</div>
 			<div id="chat-container">
 				{ chat && renderChat()}
 			</div>
@@ -82,7 +124,7 @@ function Conversation(props) {
 						autocomplete="off"
 					/>
 				</span>
-				<SendIcon id="sendIcon" onClick={onMessageSubmit}></SendIcon>
+				<SendIcon id="sendIcon" onClick={onMessageSubmit}/>
 			</form>
 			
 		</div>

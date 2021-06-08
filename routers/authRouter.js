@@ -21,9 +21,13 @@ initializePassport(
 const { JWT_SECRET } = config;
 
 router.post("/log-in", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+  try {
+    passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) res.send("No User Exists");
+    if (!user) {
+      console.log(user);
+      res.status(401).send("No User Exists");
+    }
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
@@ -31,6 +35,10 @@ router.post("/log-in", (req, res, next) => {
       });
     }
   })(req, res, next);
+  } catch (err) {
+    console.log(err)
+  };
+  
 });
 
 router.post('/sign-up', async (req, res) => {
@@ -73,5 +81,10 @@ router.get("/user", async (req, res) => {
   res.send(u);
 });
 
+router.get('/logout', function(req, res){
+  req.logout();
+  res.status(200);
+  res.send("Logged out");
+});
 
 module.exports = router;

@@ -39,5 +39,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://salty-sierra-77601.herokuapp.com/"
+  "proxy": "http://localhost:5000/"
 }
