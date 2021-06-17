@@ -10,6 +10,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const path = require("path");
+const config = require('./config')
 
 var app = express(); 
 const server = http.createServer(app);
@@ -26,7 +27,7 @@ var cors = require('cors');
 
 app.use(cors());
 
-const dbURI = "mongodb+srv://mingkang:1234@cluster0.oydwh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const dbURI = config.MONGO_URI
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 	.then((result) => {
 		if (process.env.NODE_ENV === 'production') {
